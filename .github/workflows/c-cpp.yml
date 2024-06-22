@@ -23,16 +23,9 @@ jobs:
     - name: Build all
       run: cmake --build build
 
-    - name: Discover executables
-      id: discover
-      run: |
-        executables=$(find build/src -maxdepth 2 -type f -executable)
-        echo "::set-output name=executables::$executables"
-
     - name: Run tests
       run: |
-        for executable in ${{ steps.discover.outputs.executables }}; do
+        while IFS= read -r executable; do
           echo "Running $executable"
           $executable
-        done
-
+        done < build/executables.txt
