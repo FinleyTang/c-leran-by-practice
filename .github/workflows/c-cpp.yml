@@ -1,0 +1,31 @@
+name: CMake
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y cmake gcc
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Run CMake
+      run: cmake -S . -B build
+
+    - name: Build all
+      run: cmake --build build
+
+    - name: Run tests
+      run: |
+        while IFS= read -r executable; do
+          echo "Running $executable"
+          $executable
+        done < build/executables.txt
