@@ -23,9 +23,9 @@ jobs:
     - name: Build all
       run: cmake --build build
 
+    - name: List build directory contents
+      run: ls -R build
+
     - name: Run tests
       run: |
-        while IFS= read -r executable; do
-          echo "Running $executable"
-          $executable
-        done < build/executables.txt
+        find build -type f -executable -exec {} \;
