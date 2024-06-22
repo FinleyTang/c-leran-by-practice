@@ -1,0 +1,38 @@
+name: CMake
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y cmake gcc
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Run CMake
+      run: cmake -S . -B build
+
+    - name: Build all
+      run: cmake --build build
+
+    - name: Discover executables
+      id: discover
+      run: |
+        executables=$(find build/src -maxdepth 2 -type f -executable)
+        echo "::set-output name=executables::$executables"
+
+    - name: Run tests
+      run: |
+        for executable in ${{ steps.discover.outputs.executables }}; do
+          echo "Running $executable"
+          $executable
+        done
+
