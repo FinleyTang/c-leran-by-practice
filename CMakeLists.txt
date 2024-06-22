@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # 设置项目名称
-project(C-Leran-By-Practice)
+project(CTutorPractice)
 
 # 设置C标准
 set(CMAKE_C_STANDARD 11)
