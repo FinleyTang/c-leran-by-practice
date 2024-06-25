@@ -54,6 +54,47 @@ void sort(int *ptr,int size){
     
 }
 
+void swap_int(int *a, int *b){
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void reverse_int(int *ptr, int size){
+    for (size_t i = 0; i < size/2; i++)
+    {
+        // printf("%d\t", ptr[i]);
+        // printf("%d\t\n",  ptr[size-i-1]);
+
+        swap_int(&ptr[i], &ptr[size-i-1]);
+        // printf("%d\t", ptr[i]);
+        // printf("%d\t\n",  ptr[size-i-1]);
+    }
+}
+
+
+void swap_char(char*a, char* b){
+    char* tmp = a;
+    *a =*b;
+    *b = *tmp;
+}
+
+void reverse_str(char* ptr, int len){
+    for (size_t i = 0; i < len/2; i++)
+    {
+        // swap_char(&ptr[i], &ptr[len-i-1]);
+        printf("%c\t", ptr[i]);
+        printf("%c\t\n",  ptr[len-i-1]);
+        char tmp = ptr[i];
+        ptr[i] = ptr[len-i-1];
+        ptr[len-i-1] = tmp;
+        printf("%c\t", ptr[i]);
+        printf("%c\t\n",  ptr[len-i-1]);
+    }
+    printf("%s\n", ptr);
+}
+
+
 
 int main(int argc, char const *argv[])
 {
@@ -105,8 +146,26 @@ int main(int argc, char const *argv[])
     {
         printf("%d\t", arr[i]);
     }
+    printf("\n");
+    // 中间部分看了一下略过
 
-    
+    //solution 09 Write a program to print the elements of an array in reverse order using a pointer.
+    printf("==============solution09============\n");
+    reverse_int(arr, size);
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("%d\t", arr[i]);
+    }
+    printf("\n");
+
+    //solution 10  Write a program to print a string in reverse using a pointer.
+    printf("==============solution10============\n");
+    char str_orign[] = "origin";
+    printf("%s\n", str_orign);
+    reverse_str(str_orign, strlen(str_orign));
+    printf("%s\n", str_orign);
+
+
 
     return 0;
 

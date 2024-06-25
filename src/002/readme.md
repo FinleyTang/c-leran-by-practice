@@ -174,3 +174,26 @@ return length;
 
 因为，a是函数参数，到了本函数中，a只是一个指针（地址，系统在本函数运行时，是不知道a所表示的地址有多大的数据存储空间，这里只是告诉函数：一个数据存储空间首地址），所以，sizoef(a)的结果是指针变量a占内存的大小，一般在32位机上是4个字节。a[0]是int类型，sizeof(a[0])也是4个字节，所以，结果永远是1。
 
+
+## char *origin = "origin" 可以修改吗， char origin[]="origin"可以修改吗
+
+在 C 语言中，char *origin = "origin" 和 char origin[] = "origin" 有很大的不同，尤其在是否可修改上：
+
+char *origin = "origin":
+
+这种声明方式会将 origin 指向一个字符串常量，该字符串常量通常存储在只读存储区（例如只读数据段）。尝试修改这个字符串的内容会导致未定义行为，通常会导致程序崩溃。
+例如，下面的代码是不可行的：
+```c
+char *origin = "origin";
+origin[0] = 'O'; // 运行时错误，未定义行为
+```
+
+char origin[] = "origin":
+
+这种声明方式会在栈上分配一个数组，并将字符串 "origin" 的内容复制到这个数组中。因此，可以修改数组的内容。
+例如，下面的代码是可行的：
+```c
+char origin[] = "origin";
+origin[0] = 'O'; // 合法，origin 现在包含 "Origin"
+```
+
